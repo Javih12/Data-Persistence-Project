@@ -14,7 +14,7 @@ public class MainManager : MonoBehaviour
     public GameObject GameOverText;
     
     private bool m_Started = false;
-    private int m_Points;
+    public int m_Points;
     
     private bool m_GameOver = false;
 
@@ -36,6 +36,7 @@ public class MainManager : MonoBehaviour
                 brick.onDestroyed.AddListener(AddPoint);
             }
         }
+       
     }
 
     private void Update()
@@ -60,6 +61,7 @@ public class MainManager : MonoBehaviour
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
+        RecordScore();
     }
 
     void AddPoint(int point)
@@ -72,5 +74,14 @@ public class MainManager : MonoBehaviour
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
+    }
+    public void RecordScore()
+    {
+        if(m_Points> PlayerPrefs.GetInt("MaxScore", 0))
+
+        {
+            PlayerPrefs.SetInt("MaxScore", m_Points);
+        }
+        
     }
 }
